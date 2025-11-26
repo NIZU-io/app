@@ -1,0 +1,18 @@
+{
+    "values": {
+        "addcompany": "Add Company",
+        "companyname": "Company Name",
+        "companynameplaceholder": "Enter Company Name",
+        "companyurl": "Company URL",
+        "companyurlplaceholder": "Enter Company URL",
+        "add": "Add",
+        "cancel": "Cancel",
+        "error": "Error",
+        "success": "Success",
+        "erroraddcompany": "Error while adding company",
+        "successaddcompany": "Company added successfully",
+        "errorcompanyname": "Please enter company name",
+        "save": "Save",
+        "registercompany": "Register Company"
+    }
+}

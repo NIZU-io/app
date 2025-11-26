@@ -1,0 +1,181 @@
+:root {
+    --nizu-bg-color: #1c1c1c;
+    --nizu-bg-color-2: #222;
+    --nizu-text-color: #fff;
+    --nizu-primary-color: #eeff00;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --nizu-bg-color: #fff;
+        --nizu-bg-color-2: #e0e0e0;
+        --nizu-text-color: #373737;
+        --nizu-primary-color: #0546a0;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --nizu-bg-color: #1c1c1c;
+        --nizu-bg-color-2: #222;
+        --nizu-text-color: #fff;
+        --nizu-primary-color: #eeff00;
+    }
+}
+
+body {
+    background-color: var(--nizu-bg-color);
+    color: var(--nizu-text-color);
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 70px;
+    height: 100vh;
+    background-color: var(--nizu-bg-color-2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+}
+
+nav .nav-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 70px;
+    height: 70px;
+    background-color: var(--nizu-bg-color-2);
+    color: var(--nizu-text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0px;
+}
+
+nav .nav-footer button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--nizu-bg-color);
+    color: var(--nizu-primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    -webkit-transition-duration: 0.4s;
+    /* Safari */
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 25px;
+}
+
+nav .nav-footer button:hover {
+    transition-duration: 0.1s;
+    background-color: var(--nizu-primary-color);
+    color: var(--nizu-bg-color);
+}
+
+nav .nav-footer button:after {
+    opacity: 0;
+    transition: all 0.5s;
+}
+
+nav .nav-footer button:active:after {
+    opacity: 1;
+    transition: 0s;
+}
+
+.nizu_card {
+    height: 100vh;
+    padding: 0px;
+    position: fixed;
+    bottom: -24px;
+    width: 100%;
+}
+
+.nizu_card_footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
+
+#app {
+    width: 100%;
+    height: 100vh;
+    background-color: var(--nizu-bg-color);
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 70px;
+    z-index: 1;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+[data-theme=light],
+.theme-light {
+    /* CSS Variables */
+}
+
+[data-theme=dark],
+.theme-dark {
+    /* CSS Variables */
+}
+
+video#bgVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 70px;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+}
+
+video::-webkit-media-controls {
+    display: none;
+}
+
+/* Could Use thise as well for Individual Controls */
+video::-webkit-media-controls-play-button {}
+
+video::-webkit-media-controls-volume-slider {}
+
+video::-webkit-media-controls-mute-button {}
+
+video::-webkit-media-controls-timeline {}
+
+video::-webkit-media-controls-current-time-display {}
