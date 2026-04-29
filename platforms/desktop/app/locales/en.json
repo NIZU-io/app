@@ -13,6 +13,14 @@
         "successaddcompany": "Company added successfully",
         "errorcompanyname": "Please enter company name",
         "save": "Save",
-        "registercompany": "Register Company"
+        "registercompany": "Register Company",
+        "joinWorkspace": "Join existing WorkSpace",
+        "createWorkspace": "Create your own WorkSpace",
+        "join": "Join",
+        "deleteWorkspace": "Delete WorkSpace",
+        "refreshWindow": "Refresh Window",
+        "logout": "LogOut",
+        "addWorkspace": "Add WorkSpace",
+        "invalidUrl": "Please enter a valid workspace URL"
     }
 }
