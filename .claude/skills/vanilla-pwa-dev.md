@@ -533,13 +533,18 @@ Before delivering any code, verify:
 - [ ] All JS files use IIFE pattern with `'use strict'`
 - [ ] jQuery used for all DOM manipulation (no `document.querySelector` in ui.js)
 - [ ] Theme is `system` only — CSS vars + `prefers-color-scheme`
-- [ ] LocalStorage only for prefs, state, versioning (via `Store`)
+- [ ] LocalStorage only for prefs, state, theme, versioning (via `Store`)
 - [ ] IndexedDB only for SQL Server mirrored tables (via `DB`)
 - [ ] `sw.js` and `manifest.json` always included
-- [ ] Tailwind CDN + custom CSS vars coexist (Tailwind for layout/spacing, CSS vars for color tokens)
+- [ ] Tailwind Local + custom CSS vars coexist (Tailwind for layout/spacing, CSS vars for color tokens)
 - [ ] File split respected — no logic in `index.html`
+- [ ] Each view will be stored /platform/desktop/app/views
+- [ ] Views are loaded inside existing elements
 - [ ] `sync.js` handles delta sync (uses `?since=` param when last_sync exists)
 - [ ] All async operations have error handling and UI feedback via `UI.toast()`
+- [ ] All software vendors libraries must work locally never on CDN or remote
+- [ ] Each file changed in the /plaftforms/desktop/app must be included in the /platforms/desktop/appfiles.json
+- [ ] everytime update or add files we must update the /version.json, and create a new hash for the directory /platforms/desktop and /platforms/mobile
 
 ---
 

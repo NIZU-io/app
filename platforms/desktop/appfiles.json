@@ -35,6 +35,5 @@
     "/app/assets/webfonts/fa-solid-900.ttf": "assets/webfonts/fa-solid-900.ttf",
     "/app/assets/webfonts/fa-solid-900.woff": "assets/webfonts/fa-solid-900.woff",
     "/app/assets/webfonts/fa-solid-900.woff2": "assets/webfonts/fa-solid-900.woff2",
-    "/app/views/add_company.html": "views/add_company.html",
     "/app/locales/en.json": "locales/en.json"
 }
