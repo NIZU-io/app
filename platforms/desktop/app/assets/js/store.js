@@ -7,16 +7,16 @@ const Store = {
         catch { return []; }
     },
 
-    add(subdomain) {
+    add(host) {
         const list = this.all();
-        const existing = list.find(ws => ws.subdomain === subdomain);
+        const existing = list.find(ws => ws.subdomain === host);
         if (existing) return existing;
 
         const ws = {
             id: Utils.generateId(),
-            name: Utils.capitalize(subdomain),
-            subdomain,
-            url: Utils.subdomainToUrl(subdomain),
+            name: Utils.capitalize(host.split('.')[0]),
+            subdomain: host,
+            url: Utils.toUrl(host),
             color: Utils.randomColor()
         };
         list.push(ws);

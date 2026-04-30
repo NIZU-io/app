@@ -16,18 +16,30 @@ const Utils = {
         return palette[Math.floor(Math.random() * palette.length)];
     },
 
-    normalizeSubdomain(input) {
-        let s = input.trim().toLowerCase().replace(/^https?:\/\//, '').replace(/\/$/, '');
-        if (s.endsWith('.nizu.io')) s = s.replace(/\.nizu\.io$/, '');
-        return s;
+    normalizeHost(input) {
+        return input.trim().replace(/^https?:\/\//, '').replace(/\/$/, '');
     },
 
-    subdomainToUrl(subdomain) {
-        return 'https://' + subdomain + '.nizu.io/';
+    toUrl(host) {
+        return 'https://' + host + '/';
     },
 
     capitalize(str) {
         if (!str) return '';
         return str.charAt(0).toUpperCase() + str.slice(1);
+    },
+
+    detectOS() {
+        const ua = navigator.userAgent;
+        const p  = navigator.platform || '';
+        if (/Mac/.test(p) || /Macintosh/.test(ua)) return 'macos';
+        if (/Win/.test(p) || /Windows/.test(ua))   return 'windows';
+        return 'linux';  /* Ubuntu and all other Linux */
+    },
+
+    applyOSClass() {
+        const os = this.detectOS();
+        document.documentElement.classList.add('os-' + os);
+        return os;
     }
 };

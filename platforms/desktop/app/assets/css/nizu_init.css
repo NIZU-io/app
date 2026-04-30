@@ -1,0 +1,436 @@
+/* ── Design tokens ───────────────────────────────────────────── */
+:root {
+    --sidebar-width: 70px;
+
+    --nizu-bg:        #1a1a1a;
+    --nizu-bg-alt:    #242424;
+    --nizu-text:      #e8e8e8;
+    --nizu-text-dim:  rgba(232,232,232,0.4);
+    --nizu-accent:    #5b8dee;
+    --nizu-sep:       rgba(255,255,255,0.07);
+    --nizu-font:      -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    --icon-radius:    12px;
+
+    /* legacy aliases kept for any external references */
+    --nizu-bg-color:      var(--nizu-bg);
+    --nizu-bg-color-2:    var(--nizu-bg-alt);
+    --nizu-text-color:    var(--nizu-text);
+    --nizu-primary-color: var(--nizu-accent);
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --nizu-bg:       #ffffff;
+        --nizu-bg-alt:   #f0f0f0;
+        --nizu-text:     #1c1c1c;
+        --nizu-text-dim: rgba(0,0,0,0.4);
+        --nizu-accent:   #0546a0;
+        --nizu-sep:      rgba(0,0,0,0.07);
+    }
+}
+
+/* ── OS overrides (class applied by JS on <html>) ────────────── */
+html.os-windows {
+    --nizu-font:   'Segoe UI Variable', 'Segoe UI', system-ui, Arial, sans-serif;
+    --icon-radius: 5px;
+}
+
+/* Ubuntu/Linux inherits macOS defaults — no overrides needed */
+
+/* ── Reset ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+    background-color: var(--nizu-bg);
+    color:            var(--nizu-text);
+    font-family:      var(--nizu-font);
+    font-size:        14px;
+    margin: 0; padding: 0;
+    overflow: hidden;
+    height: 100vh; width: 100vw;
+    user-select:              none;
+    -webkit-user-select:      none;
+    -webkit-font-smoothing:   antialiased;
+    -moz-osx-font-smoothing:  grayscale;
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   SIDEBAR
+═══════════════════════════════════════════════════════════════ */
+nav#sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width:  var(--sidebar-width);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0 0;
+    z-index: 100;
+}
+
+/* macOS / Linux — translucent vibrancy */
+@media (prefers-color-scheme: dark) {
+    html.os-macos nav#sidebar,
+    html.os-linux nav#sidebar {
+        background: rgba(30,30,30,0.88);
+        -webkit-backdrop-filter: blur(20px);
+                backdrop-filter: blur(20px);
+        border-right: 1px solid var(--nizu-sep);
+    }
+}
+@media (prefers-color-scheme: light) {
+    html.os-macos nav#sidebar,
+    html.os-linux nav#sidebar {
+        background: rgba(238,238,238,0.85);
+        -webkit-backdrop-filter: blur(20px);
+                backdrop-filter: blur(20px);
+        border-right: 1px solid var(--nizu-sep);
+    }
+}
+
+/* Windows — flat Mica-style */
+@media (prefers-color-scheme: dark) {
+    html.os-windows nav#sidebar {
+        background:   #202020;
+        border-right: 1px solid rgba(255,255,255,0.06);
+    }
+}
+@media (prefers-color-scheme: light) {
+    html.os-windows nav#sidebar {
+        background:   #ebebeb;
+        border-right: 1px solid rgba(0,0,0,0.07);
+    }
+}
+
+/* ── Workspace icon list ─────────────────────────────────────── */
+.ws-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 8px 12px;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+.ws-list::-webkit-scrollbar { display: none; }
+
+.ws-icon {
+    width: 46px; height: 46px;
+    border-radius: var(--icon-radius);
+    color: #fff;
+    font-size: 18px; font-weight: 700;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center; justify-content: center;
+    transition: opacity 0.12s, transform 0.1s, outline-color 0.15s;
+    outline: 2.5px solid transparent;
+    outline-offset: 2px;
+    flex-shrink: 0;
+    -webkit-app-region: no-drag;
+    letter-spacing: -0.02em;
+}
+.ws-icon:hover   { opacity: 0.88; transform: scale(1.07); }
+.ws-icon--active { outline-color: currentColor; }
+
+/* ── Add-workspace button ────────────────────────────────────── */
+nav .nav-footer {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: var(--sidebar-width);
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav .nav-footer button {
+    width: 44px; height: 44px;
+    border-radius: var(--icon-radius);
+    background: transparent;
+    color: var(--nizu-text-dim);
+    border: 1.5px solid var(--nizu-sep);
+    display: flex;
+    justify-content: center; align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    outline: none;
+    -webkit-app-region: no-drag;
+}
+nav .nav-footer button:hover {
+    background:    var(--nizu-accent);
+    color:         var(--nizu-bg);
+    border-color:  transparent;
+}
+
+html.os-windows nav .nav-footer button {
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   MAIN CONTENT
+═══════════════════════════════════════════════════════════════ */
+#app {
+    position: fixed;
+    top: 0; left: var(--sidebar-width);
+    width:  calc(100% - var(--sidebar-width));
+    height: 100vh;
+    background-color: var(--nizu-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* ── Empty state ─────────────────────────────────────────────── */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+.ws-action-btn {
+    min-width: 224px;
+    padding: 11px 24px;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--nizu-text);
+    border: 1px solid rgba(128,128,128,0.25);
+    font-size: 13px;
+    font-family: var(--nizu-font);
+    cursor: pointer;
+    opacity: 0.75;
+    transition: opacity 0.12s, background 0.12s, border-color 0.12s;
+}
+.ws-action-btn:hover {
+    opacity: 1;
+    background:    var(--nizu-bg-alt);
+    border-color:  rgba(128,128,128,0.4);
+}
+html.os-windows .ws-action-btn { border-radius: 4px; }
+
+/* ── Join form ───────────────────────────────────────────────── */
+.join-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+}
+
+.join-input {
+    width: 280px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    background: var(--nizu-bg-alt);
+    color: var(--nizu-text);
+    border: 1.5px solid transparent;
+    font-size: 14px;
+    font-family: var(--nizu-font);
+    outline: none;
+    text-align: center;
+    transition: border-color 0.15s;
+    caret-color: var(--nizu-accent);
+}
+.join-input:focus       { border-color: var(--nizu-accent); }
+.join-input::placeholder { opacity: 0.35; }
+html.os-windows .join-input { border-radius: 4px; }
+
+.ws-primary-btn {
+    min-width: 140px;
+    padding: 10px 28px;
+    border-radius: 8px;
+    background:  var(--nizu-accent);
+    color:       var(--nizu-bg);
+    border: none;
+    font-size:   13px;
+    font-weight: 600;
+    font-family: var(--nizu-font);
+    cursor: pointer;
+    transition: opacity 0.12s;
+}
+.ws-primary-btn:hover   { opacity: 0.85; }
+html.os-windows .ws-primary-btn { border-radius: 4px; }
+
+/* ── Webview pool ────────────────────────────────────────────── */
+#webview-pool {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;            /* below non-positioned main-content when inactive */
+}
+
+#webview-pool.pool--visible {
+    pointer-events: auto;
+    z-index: 5;             /* active: covers main-content */
+}
+
+.ws-frame {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    border: none;
+    display: block;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ws-frame--active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   CONTEXT MENU
+═══════════════════════════════════════════════════════════════ */
+.context-menu {
+    position: fixed;
+    z-index: 500;
+    min-width: 176px;
+    padding: 4px 0;
+    overflow: hidden;
+    -webkit-app-region: no-drag;
+}
+
+/* macOS / Linux — vibrancy */
+@media (prefers-color-scheme: dark) {
+    html.os-macos .context-menu,
+    html.os-linux .context-menu {
+        background: rgba(40,40,40,0.92);
+        -webkit-backdrop-filter: blur(28px) saturate(1.6);
+                backdrop-filter: blur(28px) saturate(1.6);
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.09);
+        box-shadow: 0 10px 36px rgba(0,0,0,0.55),
+                    0 0 0 0.5px rgba(255,255,255,0.05);
+    }
+}
+@media (prefers-color-scheme: light) {
+    html.os-macos .context-menu,
+    html.os-linux .context-menu {
+        background: rgba(248,248,248,0.92);
+        -webkit-backdrop-filter: blur(28px) saturate(1.8);
+                backdrop-filter: blur(28px) saturate(1.8);
+        border-radius: 10px;
+        border: 1px solid rgba(0,0,0,0.09);
+        box-shadow: 0 8px 28px rgba(0,0,0,0.14);
+    }
+}
+
+/* Windows — Fluent acrylic */
+@media (prefers-color-scheme: dark) {
+    html.os-windows .context-menu {
+        background:    #2b2b2b;
+        border-radius: 8px;
+        border: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+    }
+}
+@media (prefers-color-scheme: light) {
+    html.os-windows .context-menu {
+        background:    #ffffff;
+        border-radius: 8px;
+        border: 1px solid rgba(0,0,0,0.1);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+}
+
+.ctx-item {
+    display: block;
+    width: 100%;
+    padding: 7px 14px;
+    background: transparent;
+    border: none;
+    text-align: left;
+    color: var(--nizu-text);
+    font-size: 13px;
+    font-family: var(--nizu-font);
+    cursor: pointer;
+    transition: background 0.08s;
+    box-sizing: border-box;
+    -webkit-app-region: no-drag;
+}
+.ctx-item:hover       { background: rgba(128,128,128,0.13); }
+.ctx-item--danger     { color: #f55; }
+html.os-windows .ctx-item { font-size: 12px; padding: 8px 14px; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   MODAL
+═══════════════════════════════════════════════════════════════ */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 400;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(6px);
+}
+.modal-overlay.hidden { display: none; }
+.modal-handle         { display: none; }
+
+.modal-sheet {
+    background:    var(--nizu-bg);
+    border-radius: 12px;
+    overflow:      hidden;
+    box-shadow:    0 24px 64px rgba(0,0,0,0.5);
+}
+html.os-windows .modal-sheet { border-radius: 8px; }
+
+.onboarding-modal {
+    position: relative;
+    width: 680px; height: 500px;
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 10px; right: 10px;
+    z-index: 10;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: rgba(128,128,128,0.2);
+    border: none;
+    color: var(--nizu-text);
+    cursor: pointer;
+    display: flex;
+    align-items: center; justify-content: center;
+    font-size: 12px;
+    transition: background 0.12s;
+    -webkit-app-region: no-drag;
+}
+.modal-close-btn:hover  { background: rgba(128,128,128,0.38); }
+
+.onboarding-iframe {
+    width: 100%; height: 100%;
+    border: none; display: block;
+}
+
+
+/* ── Legacy / misc ───────────────────────────────────────────── */
+.nizu_card {
+    height: 100vh; padding: 0;
+    position: fixed; bottom: -24px; width: 100%;
+}
+.nizu_card_footer { position: fixed; bottom: 0; width: 100%; }
+
+video#bgVideo {
+    position: fixed; right: 0; bottom: 0;
+    left: var(--sidebar-width);
+    min-width: 100%; min-height: 100%;
+    object-fit: cover;
+}
+video::-webkit-media-controls { display: none; }

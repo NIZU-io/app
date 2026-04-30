@@ -1,4 +1,6 @@
 $(function () {
+    Utils.applyOSClass();
+
     fetch('locales/en.json')
         .then(r => r.json())
         .then(data => {
@@ -91,7 +93,7 @@ const App = {
     _handleJoin() {
         const raw = $('#input-ws-url').val().trim();
         if (!raw) return;
-        const subdomain = Utils.normalizeSubdomain(raw);
+        const subdomain = Utils.normalizeHost(raw);
         if (!subdomain) return;
         const ws = Store.add(subdomain);
         UI.renderSidebar();
@@ -102,6 +104,7 @@ const App = {
         const ws = Store.get(id);
         if (ws) DB.clearWorkspaceData(ws.subdomain);
         Store.remove(id);
+        UI.removeFromPool(id);
         const remaining = Store.all();
         UI.renderSidebar();
         if (remaining.length > 0) {
@@ -112,8 +115,7 @@ const App = {
     },
 
     _refreshWebview() {
-        const iframe = document.getElementById('ws-webview');
-        if (iframe) iframe.src = iframe.src;
+        UI.refreshActiveFrame();
     },
 
     _logout(id) {
