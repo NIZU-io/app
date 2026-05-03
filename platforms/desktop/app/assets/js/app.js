@@ -30,9 +30,9 @@ const App = {
     },
 
     _bindEvents() {
-        // Add workspace button
+        // Add workspace button — always show the choice screen first
         $(document).on('click', '#btn-add-ws', function () {
-            Router.go('join');
+            Router.go('empty');
         });
 
         // Empty state — join existing
@@ -40,9 +40,9 @@ const App = {
             Router.go('join');
         });
 
-        // Empty state — create own workspace → onboarding modal
+        // Empty state — create own workspace → full-app onboarding view
         $(document).on('click', '#btn-create-ws', function () {
-            UI.showOnboardingModal();
+            Router.go('onboarding');
         });
 
         // Join form submit

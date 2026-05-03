@@ -105,6 +105,16 @@ const UI = {
         );
     },
 
+    renderOnboarding() {
+        this._hidePool();
+        const url = 'https://onboarding.nizu.io/' + Utils.getLangCode() + '?source=app';
+        $('#main-content').html(
+            '<iframe src="' + url + '" class="onboarding-full"' +
+            ' allow="fullscreen; camera; microphone; payment; clipboard-read; clipboard-write"' +
+            ' referrerpolicy="no-referrer-when-downgrade"></iframe>'
+        );
+    },
+
     renderJoinForm() {
         this._hidePool();
         $('#main-content').html(

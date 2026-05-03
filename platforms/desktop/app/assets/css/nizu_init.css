@@ -220,6 +220,15 @@ html.os-windows nav .nav-footer button {
 }
 html.os-windows .ws-action-btn { border-radius: 4px; }
 
+/* ── Onboarding full-app view ────────────────────────────────── */
+.onboarding-full {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    border: none;
+    display: block;
+}
+
 /* ── Join form ───────────────────────────────────────────────── */
 .join-form {
     display: flex;

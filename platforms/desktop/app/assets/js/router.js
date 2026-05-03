@@ -11,6 +11,9 @@ const Router = {
         } else if (view === 'join') {
             UI.renderJoinForm();
 
+        } else if (view === 'onboarding') {
+            UI.renderOnboarding();
+
         } else if (view === 'workspace') {
             const ws = Store.get(params.id);
             if (!ws) { this.go('empty'); return; }
